@@ -3,6 +3,7 @@ import './App.css'
 import Summary from './Summary'
 import TransactionForm from './TransactionForm'
 import TransactionList from './TransactionList'
+import SpendingChart from './SpendingChart'
 
 function App() {
   const [transactions, setTransactions] = useState([
@@ -16,8 +17,12 @@ function App() {
     { id: 8, description: "Netflix", amount: 15, type: "expense", category: "entertainment", date: "2025-01-10" },
   ]);
 
-  const handleAdd = (transaction) => {
+  const handleAddTransaction = (transaction) => {
     setTransactions([...transactions, transaction]);
+  };
+
+  const handleDeleteTransaction = (id) => {
+    setTransactions(transactions.filter(t => t.id !== id));
   };
 
   return (
@@ -26,8 +31,9 @@ function App() {
       <p className="subtitle">Track your income and expenses</p>
 
       <Summary transactions={transactions} />
-      <TransactionForm onAdd={handleAdd} />
-      <TransactionList transactions={transactions} />
+      <TransactionForm onAdd={handleAddTransaction} />
+      <SpendingChart transactions={transactions} />
+      <TransactionList transactions={transactions} onDelete={handleDeleteTransaction} />
     </div>
   );
 }

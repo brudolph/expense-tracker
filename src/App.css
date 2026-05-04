@@ -95,6 +95,18 @@ form button {
   font-size: 14px;
 }
 
+.spending-chart {
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 24px;
+  background: #fff;
+}
+
+.spending-chart h2 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
 .transactions {
   margin-bottom: 24px;
 }
@@ -145,4 +157,38 @@ th {
   cursor: pointer;
   font-size: 12px;
   color: #333;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: white;
+  padding: 24px;
+  border-radius: 6px;
+  min-width: 280px;
+}
+
+.modal p {
+  margin: 0 0 16px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.modal-actions button {
+  padding: 6px 16px;
+  border: 1px solid #ccc;
+  background: #eee;
+  cursor: pointer;
+  font-size: 13px;
 }
