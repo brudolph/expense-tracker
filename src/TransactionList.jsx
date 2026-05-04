@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { CATEGORY_COLORS } from './constants';
 
 const categories = ["food", "housing", "utilities", "transport", "entertainment", "salary", "other"];
 
@@ -52,7 +53,18 @@ function TransactionList({ transactions, onDelete }) {
             <tr key={t.id}>
               <td>{t.date}</td>
               <td>{t.description}</td>
-              <td>{t.category}</td>
+              <td>
+                <span
+                  className="category-badge"
+                  style={{
+                    color: CATEGORY_COLORS[t.category] ?? 'var(--text-muted)',
+                    background: `${CATEGORY_COLORS[t.category] ?? '#54657e'}18`,
+                    borderColor: `${CATEGORY_COLORS[t.category] ?? '#54657e'}40`,
+                  }}
+                >
+                  {t.category}
+                </span>
+              </td>
               <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
                 {t.type === "income" ? "+" : "-"}${t.amount}
               </td>
