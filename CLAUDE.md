@@ -19,16 +19,14 @@ There is no test runner configured.
 
 ## Architecture
 
-Single-component React 19 app. Everything lives in `src/App.jsx`:
+React 19 + Vite app split across four components:
 
-- All state (transactions list, form fields, filters) is held in `useState` hooks at the top of `App`.
-- Transactions are seeded as a hardcoded array; **there is no persistence** (refresh wipes new entries).
-- Income/expense totals and `balance` are derived inline on each render via `filter`/`reduce` over `transactions`.
-- The category list is a hardcoded array inside the component.
+- **`App.jsx`** — holds the `transactions` array in state, seeds it with hardcoded data, and passes it down. No persistence; refresh wipes new entries.
+- **`Summary.jsx`** — receives `transactions`, computes `totalIncome`, `totalExpenses`, and `balance` via `filter`/`reduce`, and renders the three summary cards.
+- **`TransactionForm.jsx`** — owns its own form state (description, amount, type, category) and calls the `onAdd` prop with a new transaction object. Parses `amount` to a float before passing it up.
+- **`TransactionList.jsx`** — receives `transactions`, owns filter state (type, category), and renders the filtered table.
 
-### Known latent bug
-
-`amount` is stored as a **string** (from the `<input type="number">`) but `totalIncome` / `totalExpenses` use `reduce((sum, t) => sum + t.amount, 0)`. With a `0` initial value the `+` operator concatenates strings instead of summing them, so totals are wrong as soon as a user adds a transaction. This is one of the bugs the course walks through fixing — flag it but confirm before silently changing it.
+The `categories` array is duplicated in `TransactionForm` and `TransactionList` — a candidate for extraction to a shared constants file.
 
 ## Lint rule worth knowing
 
